@@ -1,0 +1,48 @@
+.calculatorbody {
+    display: flex;
+    flex-direction: column;
+}
+
+.buttoncontainer {
+    display: flex;
+    flex-direction: row;
+    height: 500px;
+    width: 300px;
+}
+
+.display {
+border-color: black;
+border:  solid 2px;
+display: flex;
+
+}
+.numbcont {
+    flex-wrap: wrap;
+    display: flex;
+    width: 210px;
+}
+
+.numbers {
+    height: 50px;
+    width: 70px;
+}
+
+.display {
+    width: 280px;
+    height: 50px;
+}
+
+.operator {
+    height: 50px;
+    width: 70px;
+}
+
+.operatorcontainer {
+    display: flex;
+    flex-direction: column;
+}
+
+#reset {
+    width: 210px;
+    height: 50px;
+}
