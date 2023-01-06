@@ -1,9 +1,9 @@
-    function add(x, y) {
-	    return x + y
-    };
+function add(x, y) {
+	  return x + y
+};
 
-    function subtract(x, y) {
-	     return x - y
+function subtract(x, y) {
+	  return x - y
 };
 
 function multiply(x, y) {
@@ -14,35 +14,30 @@ function divide(x, y) {
     return x / y
 };
 
-function multiplyarray(array2) {
-  return array2.reduce((a, b)=> a*b)
-};
-
 function operate(firstNum, secondNum, operatorChoice) {
- let firstNumToNumber = parseInt(firstNum);
- let secondNumToNumber = parseInt(secondNum);
- if (operatorChoice === "+") {
-   answer = add(firstNumToNumber, secondNumToNumber);
-   console.log(answer);
-   displayArea.innerHTML = answer;
-   
+   let firstNumToNumber = parseInt(firstNum);
+   let secondNumToNumber = parseInt(secondNum);
+ 
+   if (operatorChoice === "+") {
+     answer = add(firstNumToNumber, secondNumToNumber);
+     console.log(answer);
+     displayArea.innerHTML = answer;
 
-} if (operatorChoice === "-") {
-    answer = subtract(firstNumToNumber, secondNumToNumber);
-    console.log(answer);
-    displayValue.innerHTML = answer;
+   } else if (operatorChoice === "-") {
+      answer = subtract(firstNumToNumber, secondNumToNumber);
+      console.log(answer);
+      displayArea.innerHTML = answer;
 
-  } else if (operatorChoice === "/") {
-    answer = divide(firstNumToNumber, secondNumToNumber);
-    console.log(answer);
-    displayArea.innerHTML = answer;
+   } else if (operatorChoice === "/") {
+      answer = divide(firstNumToNumber, secondNumToNumber);
+      console.log(answer);
+      displayArea.innerHTML = answer;
 
-  } else if (operatorChoice === "*") {
-    answer = multiply(firstNumToNumber, secondNumToNumber);
-    console.log(answer);
-    displayArea.innerHTML = answer;
-
-  }
+   } else if (operatorChoice === "*") {
+      answer = multiply(firstNumToNumber, secondNumToNumber);
+      console.log(answer);
+      displayArea.innerHTML = answer;
+   }
   
 };
 
@@ -65,48 +60,56 @@ function operate(firstNum, secondNum, operatorChoice) {
     })
   });
 
-
   let updateDisplay = (e) => {
-    if(displayArea.innerHTML == answer) displayArea.innerHTML = ""
-    currentValue = e.target.innerHTML;
-    previousValue = displayArea.innerHTML;
-    displayValue = previousValue + currentValue;
-    displayArea.innerHTML = displayValue
+      if(displayArea.innerHTML == answer) displayArea.innerHTML = ""
+      currentValue = e.target.innerHTML;
+      if (e.target.innerHTML == "?") {
+        currentValue = Math.floor(Math.random() * 10);
+      }
+      previousValue = displayArea.innerHTML;
+      displayValue = previousValue + currentValue;
+      displayArea.innerHTML = displayValue
   }
-
 
 let operateButtons = document.querySelectorAll(".operator");
 operateButtons.forEach(button => {
   button.addEventListener("click", (e) => {
-   
-    startCalculation(e);
+    if(firstNum !== "") {
+      
+      prepareCalculationData(e);
+    }
+    
+    getFirstNum(e);
   })
 });
 
-let startCalculation = (e) => {
-firstNum = displayArea.innerHTML;
-operatorChoice = e.target.innerHTML;
-console.log(firstNum);
-console.log(operatorChoice);
-displayArea.innerHTML = "";
+let getFirstNum = (e) => {
+  firstNum = displayArea.innerHTML;
+  operatorChoice = e.target.innerHTML;
+  console.log(firstNum);
+  console.log(operatorChoice);
+
+//if multiple calculations are being done without = being pressed, will make sure to populate the display with the current running answer
+  displayArea.innerHTML = answer;
 };
 
-let equalButton = document.querySelectorAll(".equal");
+let equalButton = document.querySelectorAll("#equal");
 equalButton.forEach(button => {
   button.addEventListener("click", (e) => {
    
-    ;
-    calculate(e);
+    
+    prepareCalculationData(e);
   })
 });
 
-let calculate = (e) => {
+let prepareCalculationData = (e) => {
   secondNum = displayValue;
   console.log(firstNum, operatorChoice, secondNum);
   operate(firstNum, secondNum, operatorChoice);
+
 }
 
-let clearButton = document.querySelectorAll(".reset");
+let clearButton = document.querySelectorAll("#reset");
 clearButton.forEach(button => {
   button.addEventListener("click", (e) => {
 
@@ -114,26 +117,15 @@ clearButton.forEach(button => {
   })
 });
 
-function clear (e) {
-  let firstNum = "";
-  let secondNum = "";
-  let operatorChoice = "";
-  let currentValue = "";
-  let previousValue = "";
-  let displayValue = "";
+function clear () {
+  answer = "";
+  firstNum = "";
+  secondNum = "";
+  operatorChoice = "";
+  currentValue = "";
+  previousValue = "";
+  displayValue = "";
   displayArea.innerHTML = "";
   console.log(displayValue, firstNum, secondNum,operatorChoice, currentValue, previousValue)
   return displayValue, firstNum, secondNum, operatorChoice, currentValue, previousValue
 }
-
-
-
-
-
-//fix bug after equals is pressed which just adds directly to displaynumber
-//add chain calculating after am operator is prssed display running total instead of having to press equal every time before next operation
-//fix css layout
-//prevent divide by 0
-//do something for decimals
-
-//solution: add event listern after equals is presed. if number is presed, clear all. 
